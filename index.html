@@ -3,83 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>F Site</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
+<title>Fable Loader</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:'Lexend',sans-serif;
-}
 
 body{
-  background:#0b0720; /* deep purple-blue */
-  color:white;
-  overflow-x:hidden;
+margin:0;
+background:#050814;
+overflow:hidden;
+font-family:sans-serif;
 }
 
-/* ---------- LOADING SCREEN ---------- */
-#preloader{
-  position:fixed;
-  inset:0;
-  background: radial-gradient(circle at center,#0d0820 0%,#05040a 80%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  transition:opacity .8s ease, visibility .8s;
+/* splash screen */
+#loader{
+position:fixed;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(180deg,#050814,#02040a);
 }
 
-/* very soft neon F */
+/* logo */
 .logo{
-  font-size:100px;
-  font-weight:800;
-  background: linear-gradient(180deg,#0a1f4a,#041b3d); /* darker subtle gradient */
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  text-shadow:
-    0 0 4px #041b3d,
-    0 0 8px #0a1f4a; /* tiny soft glow */
-  animation:spinExplode 2.6s ease-in-out forwards;
+font-size:110px;
+font-weight:700;
+
+background:linear-gradient(180deg,#4f7cff,#1a3b80);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:logoIntro 2.6s ease forwards;
 }
 
 /* animation */
-@keyframes spinExplode{
-  0%{
-    transform:scale(.5) rotate(0deg);
-    opacity:0;
-  }
-  40%{
-    transform:scale(1.1) rotate(720deg);
-    opacity:1;
-  }
-  70%{
-    transform:scale(1.4) rotate(1080deg);
-    opacity:1;
-  }
-  100%{
-    transform:scale(6) rotate(1440deg);
-    opacity:0;
-  }
+@keyframes logoIntro{
+
+0%{
+opacity:0;
+transform:scale(.6) rotate(0deg);
 }
 
-/* ---------- MAIN SITE ---------- */
-#main{
-  opacity:0;
-  transition:opacity 1s ease;
-  padding:60px;
-  text-align:center;
+40%{
+opacity:1;
+transform:scale(1.1) rotate(720deg);
 }
 
-h1{
-  font-size:40px;
-  font-weight:800;
-  background:linear-gradient(to right,#1a3b80,#041b3d); /* subtle gradient */
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+70%{
+transform:scale(1.4) rotate(1080deg);
+}
+
+100%{
+opacity:0;
+transform:scale(5) rotate(1440deg);
+}
+
 }
 
 </style>
@@ -87,28 +65,9 @@ h1{
 
 <body>
 
-<!-- loading -->
-<div id="preloader">
-  <div class="logo">F</div>
+<div id="loader">
+<div class="logo">F</div>
 </div>
-
-<!-- main site -->
-<div id="main">
-  <h1>Your Website</h1>
-  <p>Add your content here later</p>
-</div>
-
-<script>
-window.addEventListener("load",()=>{
-  setTimeout(()=>{
-    document.getElementById("preloader").style.opacity="0"
-    setTimeout(()=>{
-      document.getElementById("preloader").style.visibility="hidden"
-      document.getElementById("main").style.opacity="1"
-    },800)
-  },2500)
-})
-</script>
 
 </body>
 </html>
