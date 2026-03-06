@@ -1,353 +1,149 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zorvixa Scripts | Uwu</title>
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%2305040a%22 stroke=%22%236225d9%22 stroke-width=%224%22/><text y=%22.9em%22 x=%2250%%22 text-anchor=%22middle%22 font-family=%22Lexend, sans-serif%22 font-weight=%22800%22 font-size=%2270%22 fill=%22%238a4fff%22>Z</text></svg>">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-deep: #05040a;
-            --bg-card: #0d0b16;
-            --accent-main: #6225d9;
-            --accent-glow: #8a4fff;
-            --text-main: #e0e0e0;
-            --text-dim: #716d81;
-            --border-color: #1e1b2e;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F Site</title>
 
-        * {
-            box-sizing: border-box;
-            font-family: 'Lexend', sans-serif;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+<style>
 
-        /* --- EXECUTOR BUTTON (TOP RIGHT) --- */
-        .executor-link {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--bg-card);
-            color: var(--accent-glow);
-            padding: 10px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            z-index: 8000;
-            border: 1px solid var(--accent-main);
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:'Lexend',sans-serif;
+}
 
-        .executor-link:hover {
-            background: var(--accent-main);
-            color: white;
-            box-shadow: 0 0 15px var(--accent-main);
-            transform: translateY(-2px);
-        }
+body{
+background:#05040a;
+color:white;
+overflow-x:hidden;
+}
 
-        /* --- PRELOADER ANIMATION --- */
-        #preloader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-deep);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s;
-        }
+/* ---------- LOADING SCREEN ---------- */
 
-        .z-logo {
-            font-size: 80px;
-            font-weight: 800;
-            color: var(--accent-glow);
-            text-shadow: 0 0 20px var(--accent-main);
-            animation: spinAndZoom 2.5s infinite ease-in-out;
-        }
+#preloader{
+position:fixed;
+inset:0;
 
-        @keyframes spinAndZoom {
-            0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
-            50% { transform: scale(1.2) rotate(360deg); opacity: 1; }
-            100% { transform: scale(5) rotate(720deg); opacity: 0; }
-        }
+background:
+radial-gradient(circle at center,#120a35 0%,#05040a 70%);
 
-        /* --- DISCORD MODAL --- */
-        #discordModal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: none; 
-            justify-content: center;
-            align-items: center;
-            z-index: 9000;
-            backdrop-filter: blur(10px);
-        }
+display:flex;
+align-items:center;
+justify-content:center;
 
-        .modal-content {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 15px;
-            border: 1px solid var(--accent-main);
-            text-align: center;
-            max-width: 400px;
-            box-shadow: 0 0 30px rgba(98, 37, 217, 0.2);
-        }
+z-index:9999;
 
-        .modal-content h2 { margin-top: 0; color: var(--accent-glow); }
-        .modal-btns { display: flex; gap: 15px; justify-content: center; margin-top: 25px; }
-        
-        .m-btn {
-            padding: 10px 25px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            border: none;
-            transition: 0.3s;
-        }
-        .btn-yes { background: var(--accent-main); color: white; }
-        .btn-no { background: transparent; border: 1px solid var(--text-dim); color: var(--text-dim); }
-        .m-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
+transition:opacity .8s ease, visibility .8s;
+}
 
-        /* --- MAIN UI --- */
-        #main-ui { opacity: 0; transition: opacity 1s; padding: 40px 20px; width: 100%; max-width: 1000px; position: relative; }
+/* neon F */
 
-        h1 {
-            text-align: center;
-            font-weight: 800;
-            font-size: 2.5rem;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #fff, var(--accent-glow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 40px;
-            margin-top: 20px;
-        }
+.logo{
+font-size:100px;
+font-weight:800;
 
-        #searchBar {
-            width: 100%;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 15px 25px;
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-            margin-bottom: 40px;
-            display: block;
-        }
+background:linear-gradient(180deg,#6bd0ff,#2a6bff,#0a2caa);
 
-        #searchBar:focus { border-color: var(--accent-main); box-shadow: 0 0 15px rgba(98, 37, 217, 0.3); }
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
+text-shadow:
+0 0 10px #2a6bff,
+0 0 30px #2a6bff,
+0 0 60px #4f7cff,
+0 0 90px #4f7cff;
 
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 24px;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-        }
+animation:spinExplode 2.6s ease-in-out forwards;
+}
 
-        .card:hover {
-            border-color: var(--accent-main);
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+/* animation */
 
-        .game-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; color: #fff; }
+@keyframes spinExplode{
 
-        .btn-group { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: auto; }
+0%{
+transform:scale(.5) rotate(0deg);
+opacity:0;
+}
 
-        button {
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+40%{
+transform:scale(1.1) rotate(720deg);
+opacity:1;
+}
 
-        .btn-script { background: #1a1631; color: var(--accent-glow); border: 1px solid var(--accent-main); }
-        .btn-game { background: #0f0c1d; color: #aaa; border: 1px solid #222; }
-        .btn-key { background: var(--accent-main); color: white; }
+70%{
+transform:scale(1.4) rotate(1080deg);
+opacity:1;
+}
 
-        button:hover { background: var(--accent-main); color: white; }
+100%{
+transform:scale(6) rotate(1440deg);
+opacity:0;
+}
 
-        /* --- NOTIFY --- */
-        #notification {
-            position: fixed;
-            top: 20px;
-            right: -400px;
-            background: var(--bg-card);
-            border-left: 4px solid var(--accent-glow);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: 0.5s ease-in-out;
-            z-index: 10000;
-        }
-        #notification.show { right: 20px; }
-        
-        @media (max-width: 600px) {
-            .executor-link {
-                position: relative;
-                top: 0;
-                right: 0;
-                display: block;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            h1 { margin-top: 10px; }
-        }
-    </style>
+}
+
+/* ---------- MAIN SITE ---------- */
+
+#main{
+opacity:0;
+transition:opacity 1s ease;
+padding:60px;
+text-align:center;
+}
+
+h1{
+font-size:40px;
+font-weight:800;
+
+background:linear-gradient(to right,#ffffff,#8a4fff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+</style>
 </head>
+
 <body>
 
-    <div id="preloader">
-        <div class="z-logo">Z</div>
-    </div>
+<!-- loading -->
 
-    <div id="discordModal">
-        <div class="modal-content">
-            <h2>Join the Community?</h2>
-            <p>Would you like to join our Discord server for updates and exclusive scripts?</p>
-            <div class="modal-btns">
-                <button class="m-btn btn-yes" onclick="handleDiscord(true)">YES</button>
-                <button class="m-btn btn-no" onclick="handleDiscord(false)">NO</button>
-            </div>
-        </div>
-    </div>
+<div id="preloader">
+<div class="logo">F</div>
+</div>
 
-    <div id="main-ui">
-        <a href="https://zorvixaexecutor.netlify.app/" target="_blank" class="executor-link">Zorvixa Executor</a>
-        <h1>ZORVIXA SCRIPTS</h1>
-        <input type="text" id="searchBar" placeholder="Search experiments..." onkeyup="search()">
-        <div class="container" id="scriptContainer"></div>
-    </div>
+<!-- main site -->
 
-    <div id="notification">Copied to clipboard! 🚀</div>
+<div id="main">
 
-    <script>
-        const data = [
-            { name: "[BANK] Strongman Simulator", script: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zezor-scripts/no-wonder/refs/heads/main/Main.lua%20lover\"))()", game: "https://www.roblox.com/games/6766156863/", key: "Zayismid" },
-            { name: "Flex Your FPS (Better)", script: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zezor-scripts/hi/refs/heads/main/main.lua\"))()", game: "https://roblox.com/games/117630334881961", key: "" },
-            { name: "Car Crash Simulator V3", script: "loadstring(game:HttpGet(\"https://pastebin.com/raw/5gzSnzjd\", true))()", game: "https://www.roblox.com/share?code=3c32388189163544b4784eca6c09a865", key: "Q8fC27pL9hW3RjZ1mY0vK4eD6xS7gB2uQ8fC27pL9hW3RjZ1mY0vK4eD6xS7gB2uQ8fC27pL9hW3RjZ1mY0vK4eD6xS7gB2u" },
-            { name: "Flex Your FPS (Spoofed)", script: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zezor-scripts/anything-and-mad/refs/heads/main/zezormain.lua\"))()", game: "https://www.roblox.com/games/76369450269884", key: "" },
-            { name: "1 Speed Per RNG", script: "loadstring(game:HttpGet(\"https://api.junkie-development.de/api/v1/luascripts/public/48cca2e8beedc49680eddddd0a61114f13c4b099199b2418545964cf2fb71966/download\"))()", game: "https://www.roblox.com/games/116061507956332", key: "" },
-            { name: "Vehicle Speed Universal", script: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zezor-scripts/vehiclespeedscript/refs/heads/main/main.lua\"))()", game: "N/A", key: "" },
-            { name: "Zorvixa.hub (FPS/Ping)", script: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zezor-scripts/zorvixa.hub/refs/heads/main/Main.lua\"))()", game: "https://www.roblox.com/games/18667984660", key: "https://pastebin.com/raw/3WhTRx1u" },
-            { name: "New Working Flex FPS", script: "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zezor-scripts/flex-your-fps-and-ping-only-working-one/refs/heads/main/main.lua\"))()", game: "https://www.roblox.com/games/18695865484", key: "https://pastebin.com/sRtnMH1L" }
-        ];
+<h1>Your Website</h1>
+<p>Add your stuff here later</p>
 
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('preloader').style.visibility = 'hidden';
-                    document.getElementById('discordModal').style.display = 'flex';
-                }, 800);
-            }, 2500); 
-        });
+</div>
 
-        function handleDiscord(wantsToJoin) {
-            if (wantsToJoin) {
-                copyToClipboard("https://discord.gg/8k3gjnJEhF", "Discord Link");
-            }
-            document.getElementById('discordModal').style.display = 'none';
-            document.getElementById('main-ui').style.opacity = '1';
-            displayScripts(data);
-        }
+<script>
 
-        function displayScripts(items) {
-            const container = document.getElementById('scriptContainer');
-            container.innerHTML = '';
-            items.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                
-                const scriptBtn = document.createElement('button');
-                scriptBtn.className = 'btn-script';
-                scriptBtn.innerText = 'Copy Script';
-                scriptBtn.onclick = () => copyToClipboard(item.script, 'Script');
+window.addEventListener("load",()=>{
 
-                const gameBtn = document.createElement('button');
-                gameBtn.className = 'btn-game';
-                gameBtn.innerText = 'Copy Game Link';
-                gameBtn.onclick = () => copyToClipboard(item.game, 'Game Link');
+setTimeout(()=>{
 
-                const btnGroup = document.createElement('div');
-                btnGroup.className = 'btn-group';
-                btnGroup.appendChild(scriptBtn);
-                btnGroup.appendChild(gameBtn);
+document.getElementById("preloader").style.opacity="0"
 
-                if (item.key) {
-                    const keyBtn = document.createElement('button');
-                    keyBtn.className = 'btn-key';
-                    keyBtn.innerText = 'Copy Key';
-                    keyBtn.onclick = () => copyToClipboard(item.key, 'Key');
-                    btnGroup.appendChild(keyBtn);
-                }
+setTimeout(()=>{
 
-                card.innerHTML = `<div class="game-title">${item.name}</div>`;
-                card.appendChild(btnGroup);
-                container.appendChild(card);
-            });
-        }
+document.getElementById("preloader").style.visibility="hidden"
+document.getElementById("main").style.opacity="1"
 
-        function copyToClipboard(text, type) {
-            const tempInput = document.createElement("textarea");
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            try {
-                const successful = document.execCommand("copy");
-                if(successful) showNotify(type);
-            } catch (err) {
-                console.error("Copy failed", err);
-            }
-            document.body.removeChild(tempInput);
-        }
+},800)
 
-        function showNotify(type) {
-            const n = document.getElementById('notification');
-            n.innerText = `${type} copied to clipboard! 🚀`;
-            n.classList.add('show');
-            setTimeout(() => n.classList.remove('show'), 3000);
-        }
+},2500)
 
-        function search() {
-            const q = document.getElementById('searchBar').value.toLowerCase();
-            const filtered = data.filter(i => i.name.toLowerCase().includes(q));
-            displayScripts(filtered);
-        }
-    </script>
+})
+
+</script>
+
 </body>
 </html>
