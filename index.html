@@ -1,51 +1,80 @@
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fable SMP</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial, Helvetica, sans-serif;
+font-family:Verdana;
 background:#0b0b0b;
 color:white;
 overflow-x:hidden;
 }
 
-/* animated background */
+/* LOADING SCREEN */
 
-body::before{
-content:"";
+#loader{
+position:fixed;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9999;
+}
+
+.spinner{
+width:70px;
+height:70px;
+border:8px solid #222;
+border-top:8px solid red;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+
+/* BACKGROUND */
+
+.bg{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
 background:
-radial-gradient(circle at 20% 20%, rgba(255,0,0,0.15), transparent 40%),
-radial-gradient(circle at 80% 70%, rgba(255,0,0,0.15), transparent 40%);
-animation:bgmove 10s infinite alternate;
+linear-gradient(45deg,#111 25%,transparent 25%),
+linear-gradient(-45deg,#111 25%,transparent 25%),
+linear-gradient(45deg,transparent 75%,#111 75%),
+linear-gradient(-45deg,transparent 75%,#111 75%);
+background-size:40px 40px;
+animation:movebg 6s linear infinite;
 z-index:-1;
 }
 
-@keyframes bgmove{
-0%{transform:scale(1)}
-100%{transform:scale(1.2)}
+@keyframes movebg{
+0%{background-position:0 0}
+100%{background-position:40px 40px}
 }
 
-/* navbar */
+/* NAVBAR */
 
 nav{
+background:#050505;
+border-bottom:2px solid red;
 display:flex;
 justify-content:center;
 gap:30px;
-background:#050505;
 padding:15px;
-border-bottom:2px solid #ff1a1a;
 }
 
 nav a{
@@ -55,113 +84,87 @@ font-weight:bold;
 }
 
 nav a:hover{
-color:#ff2b2b;
+color:red;
 }
 
-/* header */
+/* HEADER */
 
 header{
 text-align:center;
-padding:60px 20px;
-font-size:48px;
-font-weight:bold;
-color:#ff2b2b;
-text-shadow:0 0 20px #ff0000;
+font-size:50px;
+padding:50px;
+color:red;
+text-shadow:0 0 20px red;
 }
 
-/* container */
+/* CARDS */
 
 .container{
-max-width:1000px;
+max-width:1100px;
 margin:auto;
 padding:20px;
 }
 
 .card{
-background:#111;
-border-radius:8px;
+background:#121212;
+border:2px solid #222;
 padding:30px;
-margin-top:20px;
-border:2px solid #1a1a1a;
-box-shadow:0 0 20px rgba(255,0,0,0.25);
+margin-top:25px;
+border-radius:8px;
+box-shadow:0 0 20px rgba(255,0,0,0.2);
 }
 
-h2{
-margin-top:0;
-}
-
-/* server status */
-
-.status{
-font-size:22px;
-margin-top:10px;
-}
+/* PLAYER GRID */
 
 .players{
-font-size:20px;
-margin-top:5px;
-color:#ff4444;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:10px;
+}
+
+.player{
+background:#1c1c1c;
+padding:10px;
+border-radius:6px;
+text-align:center;
+}
+
+/* STAFF LOGIN */
+
+#loginPanel{
+display:none;
+background:#111;
+padding:20px;
+margin-top:20px;
+border-radius:6px;
+}
+
+input{
+padding:10px;
+margin-top:10px;
+width:100%;
+background:#1c1c1c;
+border:none;
+color:white;
 }
 
 button{
 margin-top:15px;
 padding:10px 20px;
-background:#ff1a1a;
+background:red;
 border:none;
-border-radius:5px;
 color:white;
 cursor:pointer;
-font-size:16px;
 }
 
 button:hover{
 background:#cc0000;
 }
 
-/* store items */
-
-.store-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-}
-
-.store-item{
-background:#181818;
-padding:20px;
-border-radius:6px;
-border:1px solid #333;
-}
-
-/* staff */
-
-.staff-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:20px;
-text-align:center;
-}
-
-.staff img{
-width:80px;
-height:80px;
-border-radius:6px;
-}
-
-/* dynmap */
-
 iframe{
 width:100%;
-height:500px;
+height:600px;
 border:none;
-border-radius:6px;
-}
-
-footer{
-text-align:center;
-padding:20px;
-margin-top:40px;
-color:#777;
 }
 
 </style>
@@ -169,115 +172,133 @@ color:#777;
 
 <body>
 
+<div id="loader">
+<div class="spinner"></div>
+<p>Loading Server...</p>
+</div>
+
+<div class="bg"></div>
+
 <nav>
-<a href="#home">Home</a>
+<a href="#status">Server</a>
+<a href="#players">Players</a>
 <a href="#store">Store</a>
 <a href="#staff">Staff</a>
-<a href="#map">Map</a>
+<a href="#login">Staff Login</a>
 </nav>
 
-<header>
-FABLE SMP
-</header>
+<header>FABLE SMP</header>
 
 <div class="container">
 
-<div class="card" id="home">
+<div class="card" id="status">
 <h2>Server Status</h2>
+<p id="statusText">Checking...</p>
+<p id="motd"></p>
+<p id="java"></p>
+<p id="bedrock"></p>
+</div>
 
-<div class="status" id="status">Checking...</div>
-<div class="players" id="players"></div>
-
-<button onclick="copyIP()">Copy Server IP</button>
+<div class="card" id="players">
+<h2>Online Players</h2>
+<div class="players" id="playerList"></div>
 </div>
 
 <div class="card" id="store">
-<h2>Store / Donations</h2>
-
-<div class="store-grid">
-
-<div class="store-item">
-<h3>VIP Rank</h3>
-<p>$5</p>
-<button onclick="window.open('https://yourstorelink')">Buy</button>
-</div>
-
-<div class="store-item">
-<h3>MVP Rank</h3>
-<p>$10</p>
-<button onclick="window.open('https://yourstorelink')">Buy</button>
-</div>
-
-<div class="store-item">
-<h3>Coins Pack</h3>
-<p>$3</p>
-<button onclick="window.open('https://yourstorelink')">Buy</button>
-</div>
-
-</div>
+<h2>Server Store</h2>
+<iframe src="https://YOURTEBEXSTORE.tebex.io"></iframe>
 </div>
 
 <div class="card" id="staff">
 <h2>Staff</h2>
-
-<div class="staff-grid">
-
-<div class="staff">
-<img src="https://minotar.net/avatar/Owner/100">
-<p>Owner</p>
-</div>
-
-<div class="staff">
-<img src="https://minotar.net/avatar/Admin/100">
-<p>Admin</p>
-</div>
-
-<div class="staff">
-<img src="https://minotar.net/avatar/Moderator/100">
-<p>Moderator</p>
-</div>
-
+<div class="players">
+<div class="player">Owner</div>
+<div class="player">Admin</div>
+<div class="player">Moderator</div>
 </div>
 </div>
 
-<div class="card" id="map">
-<h2>Live Map</h2>
+<div class="card" id="login">
+<h2>Staff Login</h2>
 
-<iframe src="https://yourserver.com:8123"></iframe>
+<button onclick="toggleLogin()">Open Login</button>
 
+<div id="loginPanel">
+<input id="user" placeholder="Username">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<p id="loginResult"></p>
 </div>
 
 </div>
 
-<footer>
-© 2026 Fable SMP
-</footer>
+</div>
 
 <script>
 
 const serverIP = "play.fablesmp.net"
 
-function copyIP(){
-navigator.clipboard.writeText(serverIP)
-alert("Server IP copied!")
-}
-
-fetch("https://api.mcsrvstat.us/2/" + serverIP)
-.then(res => res.json())
-.then(data => {
+fetch("https://api.mcsrvstat.us/2/"+serverIP)
+.then(res=>res.json())
+.then(data=>{
 
 if(data.online){
 
-document.getElementById("status").innerHTML="🟢 Server Online"
-document.getElementById("players").innerHTML="Players: " + data.players.online + "/" + data.players.max
+document.getElementById("statusText").innerHTML="🟢 Online"
+
+document.getElementById("motd").innerHTML="MOTD: "+data.motd.clean
+
+document.getElementById("java").innerHTML="Java Players: "+data.players.online+"/"+data.players.max
+
+if(data.players.list){
+
+let list=""
+
+data.players.list.forEach(p=>{
+list+=`<div class="player">${p}</div>`
+})
+
+document.getElementById("playerList").innerHTML=list
+
+}
+
+if(data.bedrock){
+
+document.getElementById("bedrock").innerHTML="Bedrock Port: "+data.bedrock.port
+
+}
 
 }else{
 
-document.getElementById("status").innerHTML="🔴 Server Offline"
+document.getElementById("statusText").innerHTML="🔴 Offline"
 
 }
 
 })
+
+function toggleLogin(){
+const panel=document.getElementById("loginPanel")
+panel.style.display=panel.style.display==="block"?"none":"block"
+}
+
+function login(){
+
+const user=document.getElementById("user").value
+const pass=document.getElementById("pass").value
+
+if(user==="admin" && pass==="password"){
+document.getElementById("loginResult").innerHTML="Access granted"
+}else{
+document.getElementById("loginResult").innerHTML="Invalid login"
+}
+
+}
+
+window.onload=()=>{
+setTimeout(()=>{
+document.getElementById("loader").style.display="none"
+},1200)
+}
 
 </script>
 
