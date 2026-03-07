@@ -1,38 +1,41 @@
-javascript
-const serverIP="play.fablesmp.net"
 
-fetch("https://api.mcsrvstat.us/2/"+serverIP)
-.then(res=>res.json())
+const server="play.fablesmp.net"
+
+fetch("https://api.mcsrvstat.us/2/"+server)
+.then(r=>r.json())
 .then(data=>{
 
 if(data.online){
 
-document.getElementById("status").innerHTML="Online"
+document.getElementById("status").innerText="🟢 Server Online"
 
-document.getElementById("motd").innerHTML=data.motd.clean
+document.getElementById("motd").innerText=data.motd.clean
 
-document.getElementById("playerCount").innerHTML=
-data.players.online+"/"+data.players.max
+document.getElementById("players").innerText=
+data.players.online+" / "+data.players.max+" players"
 
 if(data.players.list){
 
-let list=""
+let html=""
 
 data.players.list.forEach(p=>{
-list+=`<div>${p}</div>`
+html+=`<div class="player">${p}</div>`
 })
 
-const el=document.getElementById("playerList")
-
-if(el) el.innerHTML=list
+document.getElementById("playerList").innerHTML=html
 
 }
 
 }else{
 
-document.getElementById("status").innerHTML="Offline"
+document.getElementById("status").innerText="🔴 Server Offline"
 
 }
 
 })
+
+function copyIP(){
+navigator.clipboard.writeText(server)
+alert("Server IP copied")
+}
 
