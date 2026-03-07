@@ -1,33 +1,39 @@
-
+```html
 <!DOCTYPE html>
 <html>
 <head>
 <title>Fable SMP</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
 
 <nav>
+<div class="logo">Fable SMP</div>
+
+<div class="links">
 <a href="index.html">Home</a>
 <a href="rules.html">Rules</a>
 <a href="players.html">Players</a>
 <a href="staff.html">Staff</a>
-<a href="staff-login.html">Staff Login</a>
+</div>
 </nav>
 
-<header>
-<h1>Fable SMP</h1>
-<p>Minecraft Survival Server</p>
-</header>
+<div class="container">
 
-<div class="panel">
+<div class="server-card">
 
-<h2>Server Status</h2>
+<div class="server-title">Minecraft Server</div>
 
-<p id="status">Checking...</p>
-<p id="motd"></p>
-<p id="playerCount"></p>
+<div id="status" class="status">Checking server...</div>
+<div id="motd"></div>
+<div id="players"></div>
+
+<button class="btn" onclick="copyIP()">Copy IP</button>
+
+<div class="players" id="playerList"></div>
+
+</div>
 
 </div>
 
@@ -35,4 +41,4 @@
 
 </body>
 </html>
-
+```
