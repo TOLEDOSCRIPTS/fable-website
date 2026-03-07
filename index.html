@@ -1,242 +1,286 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fable Loader</title>
+<title>Fable SMP</title>
 
 <style>
 
 body{
 margin:0;
-background:#050814;
-overflow:hidden;
-font-family:sans-serif;
+font-family:Arial, Helvetica, sans-serif;
+background:#0b0b0b;
+color:white;
+overflow-x:hidden;
 }
 
-/* splash screen */
-#loader{
+/* animated background */
+
+body::before{
+content:"";
 position:fixed;
-inset:0;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 20% 20%, rgba(255,0,0,0.15), transparent 40%),
+radial-gradient(circle at 80% 70%, rgba(255,0,0,0.15), transparent 40%);
+animation:bgmove 10s infinite alternate;
+z-index:-1;
+}
+
+@keyframes bgmove{
+0%{transform:scale(1)}
+100%{transform:scale(1.2)}
+}
+
+/* navbar */
+
+nav{
 display:flex;
-align-items:center;
 justify-content:center;
-background:linear-gradient(180deg,#050814,#02040a);
+gap:30px;
+background:#050505;
+padding:15px;
+border-bottom:2px solid #ff1a1a;
 }
 
-/* logo */
-.logo{
-font-size:110px;
-font-weight:700;
-
-background:linear-gradient(180deg,#4f7cff,#1a3b80);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-
-animation:logoIntro 2.6s ease forwards;
+nav a{
+color:white;
+text-decoration:none;
+font-weight:bold;
 }
 
-/* animation */
-@keyframes logoIntro{
-
-0%{
-opacity:0;
-transform:scale(.6) rotate(0deg);
+nav a:hover{
+color:#ff2b2b;
 }
 
-40%{
-opacity:1;
-transform:scale(1.1) rotate(720deg);
+/* header */
+
+header{
+text-align:center;
+padding:60px 20px;
+font-size:48px;
+font-weight:bold;
+color:#ff2b2b;
+text-shadow:0 0 20px #ff0000;
 }
 
-70%{
-transform:scale(1.4) rotate(1080deg);
+/* container */
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:20px;
 }
 
-100%{
-opacity:0;
-transform:scale(5) rotate(1440deg);
+.card{
+background:#111;
+border-radius:8px;
+padding:30px;
+margin-top:20px;
+border:2px solid #1a1a1a;
+box-shadow:0 0 20px rgba(255,0,0,0.25);
 }
 
+h2{
+margin-top:0;
+}
+
+/* server status */
+
+.status{
+font-size:22px;
+margin-top:10px;
+}
+
+.players{
+font-size:20px;
+margin-top:5px;
+color:#ff4444;
+}
+
+button{
+margin-top:15px;
+padding:10px 20px;
+background:#ff1a1a;
+border:none;
+border-radius:5px;
+color:white;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#cc0000;
+}
+
+/* store items */
+
+.store-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.store-item{
+background:#181818;
+padding:20px;
+border-radius:6px;
+border:1px solid #333;
+}
+
+/* staff */
+
+.staff-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:20px;
+text-align:center;
+}
+
+.staff img{
+width:80px;
+height:80px;
+border-radius:6px;
+}
+
+/* dynmap */
+
+iframe{
+width:100%;
+height:500px;
+border:none;
+border-radius:6px;
+}
+
+footer{
+text-align:center;
+padding:20px;
+margin-top:40px;
+color:#777;
 }
 
 </style>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Fable SMP — Minecraft Server</title>
-  <meta name="description" content="Join Fable SMP, an epic Minecraft survival server. Adventure awaits!">
-  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<div id="loader">
-<div class="logo">F</div>
-<!-- Preloader -->
-<div id="preloader">
-  <div class="loader-logo">F</div>
-</div>
-
-<!-- Navigation -->
 <nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-brand">Fable SMP</a>
-    <button class="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="rules.html">Rules</a></li>
-      <li><a href="store.html">Store &amp; Vote</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </div>
+<a href="#home">Home</a>
+<a href="#store">Store</a>
+<a href="#staff">Staff</a>
+<a href="#map">Map</a>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-content fade-up">
-    <h1>Welcome to Fable SMP</h1>
-    <p>Your next adventure starts here. Join our thriving Minecraft community and forge your own story.</p>
-    <div class="hero-buttons">
-      <a href="#server-info" class="btn btn-primary">&#9654; How to Join</a>
-      <a href="https://discord.gg/your-invite" target="_blank" rel="noopener" class="btn btn-secondary">&#128172; Discord</a>
-    </div>
-  </div>
-</section>
+<header>
+FABLE SMP
+</header>
 
-<!-- Server Info -->
-<section id="server-info">
-  <div class="section-inner fade-up">
-    <h2 class="section-title">Server Information</h2>
-    <p class="section-subtitle">Everything you need to connect and start playing</p>
-    <div class="server-info-grid">
-      <div class="glass info-card">
-        <div class="icon">&#127759;</div>
-        <div class="label">Server Name</div>
-        <div class="value">Fable SMP</div>
-      </div>
-      <div class="glass info-card">
-        <div class="icon">&#128268;</div>
-        <div class="label">Server IP</div>
-        <div class="value copyable" onclick="copyIP()">
-          play.fablesmp.net
-          <span class="copied-toast">Copied!</span>
-        </div>
-      </div>
-      <div class="glass info-card">
-        <div class="icon">&#9881;&#65039;</div>
-        <div class="label">Version</div>
-        <div class="value">Java 1.20.4+</div>
-      </div>
-      <div class="glass info-card">
-        <div class="icon">&#128242;</div>
-        <div class="label">Discord</div>
-        <div class="value"><a href="https://discord.gg/your-invite" target="_blank" rel="noopener" style="color:#00d4ff;text-decoration:none">Join our Discord</a></div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="container">
 
-<!-- Features -->
-<section>
-  <div class="section-inner fade-up">
-    <h2 class="section-title">Server Features</h2>
-    <p class="section-subtitle">What makes Fable SMP special</p>
-    <div class="features-grid">
-      <div class="glass feature-card">
-        <div class="feature-icon">&#9876;&#65039;</div>
-        <h3>Survival Gameplay</h3>
-        <p>Pure survival experience with balanced economy, land claiming, and community-driven events.</p>
-      </div>
-      <div class="glass feature-card">
-        <div class="feature-icon">&#127984;</div>
-        <h3>Custom Plugins</h3>
-        <p>Unique features and quality-of-life improvements tailored for the best experience.</p>
-      </div>
-      <div class="glass feature-card">
-        <div class="feature-icon">&#128101;</div>
-        <h3>Active Community</h3>
-        <p>Friendly players, dedicated staff, and regular events that keep things exciting.</p>
-      </div>
-      <div class="glass feature-card">
-        <div class="feature-icon">&#128274;</div>
-        <h3>Anti-Cheat</h3>
-        <p>Advanced anti-cheat protection to ensure fair gameplay for everyone.</p>
-      </div>
-      <div class="glass feature-card">
-        <div class="feature-icon">&#127757;</div>
-        <h3>Custom Worlds</h3>
-        <p>Explore beautifully generated worlds with custom terrain and structures.</p>
-      </div>
-      <div class="glass feature-card">
-        <div class="feature-icon">&#127942;</div>
-        <h3>Weekly Events</h3>
-        <p>Tournaments, building contests, and community challenges with awesome rewards.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="card" id="home">
+<h2>Server Status</h2>
 
-<!-- Staff Team -->
-<section>
-  <div class="section-inner fade-up">
-    <h2 class="section-title">Staff Team</h2>
-    <p class="section-subtitle">The people who keep Fable SMP running</p>
-    <div class="staff-grid">
-      <div class="glass staff-card">
-        <div class="staff-avatar">F</div>
-        <h3>FableOwner</h3>
-        <span class="role">Owner</span>
-        <p class="bio">Founder of Fable SMP. Building a community one block at a time.</p>
-      </div>
-      <div class="glass staff-card">
-        <div class="staff-avatar">A</div>
-        <h3>Admin_One</h3>
-        <span class="role">Admin</span>
-        <p class="bio">Server administration and plugin development.</p>
-      </div>
-      <div class="glass staff-card">
-        <div class="staff-avatar">M</div>
-        <h3>ModHelper</h3>
-        <span class="role">Moderator</span>
-        <p class="bio">Keeping the peace and helping new players get started.</p>
-      </div>
-      <div class="glass staff-card">
-        <div class="staff-avatar">B</div>
-        <h3>BuildMaster</h3>
-        <span class="role">Builder</span>
-        <p class="bio">Creating the amazing builds and arenas you see on the server.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="status" id="status">Checking...</div>
+<div class="players" id="players"></div>
 
-<!-- CTA -->
-<section>
-  <div class="section-inner fade-up">
-    <div class="cta-banner">
-      <h2>Ready to Join?</h2>
-      <p>Connect to the server and start your adventure today.</p>
-      <div class="hero-buttons">
-        <a href="https://discord.gg/your-invite" target="_blank" rel="noopener" class="btn btn-primary">&#128172; Join Discord</a>
-        <a href="store.html" class="btn btn-secondary">&#128722; Visit Store</a>
-      </div>
-    </div>
-  </div>
-</section>
+<button onclick="copyIP()">Copy Server IP</button>
+</div>
 
-<!-- Footer -->
+<div class="card" id="store">
+<h2>Store / Donations</h2>
+
+<div class="store-grid">
+
+<div class="store-item">
+<h3>VIP Rank</h3>
+<p>$5</p>
+<button onclick="window.open('https://yourstorelink')">Buy</button>
+</div>
+
+<div class="store-item">
+<h3>MVP Rank</h3>
+<p>$10</p>
+<button onclick="window.open('https://yourstorelink')">Buy</button>
+</div>
+
+<div class="store-item">
+<h3>Coins Pack</h3>
+<p>$3</p>
+<button onclick="window.open('https://yourstorelink')">Buy</button>
+</div>
+
+</div>
+</div>
+
+<div class="card" id="staff">
+<h2>Staff</h2>
+
+<div class="staff-grid">
+
+<div class="staff">
+<img src="https://minotar.net/avatar/Owner/100">
+<p>Owner</p>
+</div>
+
+<div class="staff">
+<img src="https://minotar.net/avatar/Admin/100">
+<p>Admin</p>
+</div>
+
+<div class="staff">
+<img src="https://minotar.net/avatar/Moderator/100">
+<p>Moderator</p>
+</div>
+
+</div>
+</div>
+
+<div class="card" id="map">
+<h2>Live Map</h2>
+
+<iframe src="https://yourserver.com:8123"></iframe>
+
+</div>
+
+</div>
+
 <footer>
-  <p>&copy; 2026 Fable SMP. All rights reserved. Not affiliated with Mojang Studios.</p>
-  <p style="margin-top:.5rem">
-    <a href="rules.html">Rules</a> &middot;
-    <a href="store.html">Store</a> &middot;
-    <a href="contact.html">Contact</a> &middot;
-    <a href="https://discord.gg/your-invite" target="_blank" rel="noopener">Discord</a>
-  </p>
+© 2026 Fable SMP
 </footer>
 
-<script src="js/main.js"></script>
+<script>
+
+const serverIP = "play.fablesmp.net"
+
+function copyIP(){
+navigator.clipboard.writeText(serverIP)
+alert("Server IP copied!")
+}
+
+fetch("https://api.mcsrvstat.us/2/" + serverIP)
+.then(res => res.json())
+.then(data => {
+
+if(data.online){
+
+document.getElementById("status").innerHTML="🟢 Server Online"
+document.getElementById("players").innerHTML="Players: " + data.players.online + "/" + data.players.max
+
+}else{
+
+document.getElementById("status").innerHTML="🔴 Server Offline"
+
+}
+
+})
+
+</script>
+
 </body>
 </html>
+```
